@@ -1,0 +1,70 @@
+import urllib
+import numpy as np
+import pandas as pd
+import csv
+import xlrd
+import unicodecsv
+from pandas import Series
+
+
+"" 
+Class to transform data
+excelToCSV: For converting  an excel file to a CSV file
+manage_csv: ConversiontoSeries and finding data from a given range
+"""
+
+
+class Transform_Data:
+
+    def __init__(self):
+        pass
+
+    def excel_to_csv(file1, csv_filename):
+
+        wb = xlrd.open_workbook(file1)
+        sh = wb.sheet_by_index(0)
+        fh = open(csv_filename,"wb")
+        csv_out = unicodecsv.writer(fh, encoding='utf-8')
+
+        for row_number in xrange (sh.nrows):
+        csv_out.writerow(sh.row_values(row_number))
+        fh.close()
+
+
+    def manage_csv(csv_name):            
+
+        series = Series.from_csv(csv_name, header=0)
+        retrieveFrom givenTimerange(date1, date2)
+        df = pd.DataFrame()
+        df['date'] = pd.date_range(date, periods, freq='D')
+        mask = (df['date'] > fdate1) & (df['date'] <= date2)
+        print(df.loc[mask])
+
+
+def main():
+    tk_obj = Tkinter.Tk()
+    tk_obj.withdraw()
+   
+    """
+   Download from website.
+   url_of_file = website url from where files have to be downloaded.
+   """
+   url_of_file = raw_input("Please provide the name of web url from which xlsx can be retrived:")
+   file1 = urllib.urlretrieve(url_of_file)
+
+   url_of_file = raw_input("Please provide the name of web url from which xlsx can be retrived:")
+   file2 = urllib.urlretrieve(url_of_file)
+
+
+  
+  """
+  The xlsx files are saved in current directory now. 
+   Extracting the contenting of xlsx in to a csv
+  """
+   obj = Transform_Data()
+   obj.excel_to_csv()
+   obj.manage_csv()
+
+
+main()
+
